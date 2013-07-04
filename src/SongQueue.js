@@ -7,21 +7,41 @@ var SongQueue = Songs.extend({
       }
     });
     this.on('ended', function(){
-      this.dequeue();
+      console.log('ended');
+
+      this.ended();
+    }, this);
+
+    this.on('enqueueMe', function(song){
+      console.log("heard it");
+    },this);
+
+    this.on('dequeueMe', function(song){
+      this.remove(song);
     }, this);
 
   },
 
   playFirst: function(){
-      this.at(0).play();
+   // debugger
+   console.log(this.at(0));
+   this.at(0).play();
+
   },
 
-  dequeue: function(){
+  ended: function(){
     this.remove(this.at(0));
     if(this.at(0)){
-      this.playFirst();
+       this.playFirst();
     }
-  }
+
+}
+  // dequeue: function(){
+  //   this.remove(this.at(0));
+  //   if(this.at(0)){
+  //     this.playFirst();
+  //   }
+  // }
 
 
   // add : function(){
