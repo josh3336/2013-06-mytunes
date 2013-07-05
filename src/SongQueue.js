@@ -19,6 +19,7 @@ var SongQueue = Songs.extend({
     this.on('dequeueMe', function(song){
       if (this.length === 1) {
         this.remove(song);
+        this.trigger('endQueue', this);
       }
       if (song === this.at(0)){
         this.remove(song);
