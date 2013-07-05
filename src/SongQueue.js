@@ -1,6 +1,7 @@
 var SongQueue = Songs.extend({
 
   initialize: function(){
+    this.timesPlayed = {};
     this.on('add', function(){
       if(!this.at(1)){
         this.playFirst();
@@ -33,9 +34,13 @@ var SongQueue = Songs.extend({
   },
 
   playFirst: function(){
-   // debugger
-   console.log(this.at(0));
-   this.at(0).play();
+    if (this.timesPlayed.hasOwnProperty(this.at(0).attributes.title)){
+      this.timesPlayed[this.at(0).attributes.title]++;
+    } else {
+      this.timesPlayed[this.at(0).attributes.title] = 1;
+    }
+    this.at(0).attributes.count = this.timesPlayed[this.at(0).attributes.title];
+    this.at(0).play();
   },
 
   ended: function(){
